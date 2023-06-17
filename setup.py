@@ -17,7 +17,7 @@ def get_requirements(file_path:str)->List[str]:
     return requirements
 
 setup(
-name='mlproject',
+name='end_to_end_ml_project',
 version='0.0.1',
 author='Sahi',
 author_email='mohamedfrancissahi@gmail.com',
