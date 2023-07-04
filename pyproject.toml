@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "end-to-end-ml-project"
+version = "0.1.0"
+description = ""
+authors = ["momosahi <mohamedfrancissahi@gmail.com>"]
+readme = "README.md"
+packages = [{include = "end_to_end_ml_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
