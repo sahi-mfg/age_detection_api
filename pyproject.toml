@@ -2,12 +2,18 @@
 name = "end-to-end-ml-project"
 version = "0.1.0"
 description = ""
-authors = ["momosahi <mohamedfrancissahi@gmail.com>"]
+authors = ["Sahi Mohamed Francis Gonsangbeu <mohamedfrancissahi@gmail.com>"]
 readme = "README.md"
-packages = [{include = "end_to_end_ml_project"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.9,<3.13"
+pandas = "^2.1.1"
+numpy = "^1.26.0"
+plotly = "^5.17.0"
+seaborn = "^0.13.0"
+scikit-learn = "^1.3.1"
+ipykernel = "^6.25.2"
+jupyter = "^1.0.0"
 
 
 [build-system]
