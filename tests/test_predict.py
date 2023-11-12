@@ -5,7 +5,7 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_predict_image():
+def test_predict():
 
     filepath = "tests/files/picture.jpeg"
 
