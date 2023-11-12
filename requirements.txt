@@ -1,1 +1,7 @@
--e .
+numpy
+pandas
+matplotlib
+torch
+streamlit
+timm
+fastapi
