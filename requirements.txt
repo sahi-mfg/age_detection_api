@@ -5,3 +5,6 @@ torch
 streamlit
 timm
 fastapi
+transformers
+pytest
+uvicorn
