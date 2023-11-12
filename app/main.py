@@ -1,5 +1,4 @@
 from io import BytesIO
-from typing import List, Dict
 
 import uvicorn
 from fastapi import FastAPI, File, HTTPException, UploadFile
@@ -13,11 +12,16 @@ app = FastAPI()
 model = load_model()
 
 
+@app.get("/")
+def greeting():
+    return "Welcome to the Age Classification API!"
+
+
 # Define the response JSON
 class Prediction(BaseModel):
     filename: str
     content_type: str
-    predictions: List[Dict[str, float]]
+    predictions: str
 
 
 @app.post("/predict", response_model=Prediction)
@@ -44,4 +48,4 @@ async def prediction(file: UploadFile = File(...)):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=5000)
+    uvicorn.run("main:app", port=5000)

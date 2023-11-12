@@ -1,8 +1,24 @@
+# Import necessary modules
 import streamlit as st
+import requests
+import io
 
-with st.sidebar:
-    st.title("Age detection app")
-    st.info("Upload a picture and the app will tell you the age of the person in the picture")
+# Create a Streamlit app with a file uploader
+st.title('Age Classification')
 
+st.info("This app uses a deep learning model to predict the age range of a person from their picture.")
 
-uploaded_file = st.file_uploader("Upload your file here...", type=["jpg", "png", "jpeg"])
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
+
+# When a file is uploaded, read the file and send it to the API
+if uploaded_file is not None:
+    file_bytes = io.BytesIO(uploaded_file.getvalue())
+    response = requests.post('http://127.0.0.1:5000/predict', files={'file': file_bytes})
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Display the prediction result
+        prediction = response.json()
+        st.write(f"The predicted age range is: {prediction['age_range']}")
+    else:
+        st.write("An error occurred while making the prediction.")
