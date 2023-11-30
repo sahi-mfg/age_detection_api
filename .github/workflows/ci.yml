@@ -13,4 +13,4 @@ jobs:
       run: docker build . --file Dockerfile --tag age-detection-image
 
     - name: Run tests
-      run: docker age-detection-image python -m pytest
+      run: docker run age-detection-image python -m pytest
