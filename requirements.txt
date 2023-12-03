@@ -2,9 +2,13 @@ numpy
 pandas
 matplotlib
 torch
-streamlit
-fastapi
-transformers
-uvicorn
+streamlit~=1.29.0
+fastapi~=0.104.1
+transformers~=4.35.2
+uvicorn~=0.24.0.post1
 python-multipart
 pytest
+
+requests~=2.31.0
+pillow~=10.1.0
+pydantic~=2.5.2
