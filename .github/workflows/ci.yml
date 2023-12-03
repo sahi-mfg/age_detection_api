@@ -14,8 +14,11 @@ jobs:
       with:
         node-version: 16
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag age-detection-image
+    - name: Build the FastAPI Docker image
+      run: docker build . --file Dockerfile.fastapi --tag age-detection-api-image
+
+    - name: Build the streamlit Docker image
+      run: docker build . --file Dockerfile.streamlit --tag age-detection-ui-image
 
     - name: Run tests
-      run: docker run age-detection-image python -m pytest tests/
+      run: docker run age-detection-api-image python -m pytest tests/
