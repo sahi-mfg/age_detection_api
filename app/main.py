@@ -2,7 +2,7 @@ from io import BytesIO
 
 import uvicorn
 from fastapi import FastAPI, File, HTTPException, UploadFile
-from model import load_model, predict, prepare_image
+from .model import load_model, predict, prepare_image
 from PIL import Image
 from pydantic import BaseModel
 
@@ -26,7 +26,6 @@ class Prediction(BaseModel):
 
 @app.post("/predict", response_model=Prediction)
 async def prediction(file: UploadFile = File(...)):
-
     # Ensure that the file is an image
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File provided is not an image.")
