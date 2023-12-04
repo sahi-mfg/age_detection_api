@@ -4,4 +4,4 @@ COPY requirements.txt /tmp/
 RUN pip install --no-cache-dir --upgrade -r /tmp/requirements.txt
 COPY . /app/
 
-CMD ["uvicorn","main:app", "--port","5001", "--host","127.0.0"]
+CMD ["uvicorn","main:app", "--port","5001", "--host","0.0.0.0"]
