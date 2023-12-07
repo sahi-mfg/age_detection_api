@@ -2,5 +2,13 @@ services:
 - type: web
   name: fastapi-service
   env: docker
-  buildCommand: docker build -t fastapi-service .
+  dockerfilePath: Dockerfile.fastapi
+  buildCommand: docker build -f Dockerfile.fastapi -t fastapi-service .
   startCommand: docker run -p 10000:80 fastapi-service
+
+- type: web
+  name: streamlit-service
+  env: docker
+  dockerfilePath: Dockerfile.streamlit
+  buildCommand: docker build -f Dockerfile.streamlit -t streamlit-service .
+  startCommand: docker run -p 8501:8501 streamlit-service
