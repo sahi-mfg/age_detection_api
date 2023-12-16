@@ -1,16 +1,16 @@
-version: '3.10'
+version: "3.10"
 
 services:
   fastapi:
     build:
       context: .
-      dockerfile: Dockerfile.fastapi
+      dockerfile: Dockerfile
     ports:
       - 5001:5000
 
   streamlit:
     build:
       context: .
-      dockerfile: Dockerfile.streamlit
+      dockerfile: ui/Dockerfile
     ports:
       - 8501:8501
