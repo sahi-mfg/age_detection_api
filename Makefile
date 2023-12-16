@@ -1,10 +1,23 @@
-test:
-	python -m pytest tests/test_predict.py
+# Variables
+IMAGE_NAME = age-detection-api
+CONTAINER_NAME = age-detection-api-container
+PORT = 5001
 
-env:
-	pipenv install --dev
-	pipenv shell
+# Targets
+.PHONY: build run stop clean
 
-env_out:
-	deactivate
+build:
+	docker build -t $(IMAGE_NAME) .
+
+run:
+	docker run -d -p $(PORT):$(PORT) --name $(CONTAINER_NAME) $(IMAGE_NAME)
+
+stop:
+	docker stop $(CONTAINER_NAME) && docker rm $(CONTAINER_NAME)
+
+clean: stop
+	docker rmi $(IMAGE_NAME)
+
+
+
 
