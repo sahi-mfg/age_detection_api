@@ -7,14 +7,14 @@ from PIL import Image
 from pydantic import BaseModel
 
 
-app = FastAPI()
+app = FastAPI(title="Age Detection", description="API to predict age from images", version="0.1")
 
 model = load_model()
 
 
-@app.get("/")
+@app.get("/", tags=["Welcome"])
 def greeting():
-    return "Welcome to the Age Classification API!"
+    return {"Message": "Age detection API from images", "version": "0.1"}
 
 
 # Define the response JSON
@@ -24,7 +24,7 @@ class Prediction(BaseModel):
     predictions: str
 
 
-@app.post("/predict", response_model=Prediction)
+@app.post("/predict", response_model=Prediction, tags=["Prediction"])
 async def prediction(file: UploadFile = File(...)):
     # Ensure that the file is an image
     if not file.content_type.startswith("image/"):
