@@ -19,6 +19,7 @@ clean: stop
 	docker rmi $(IMAGE_NAME)
 
 test:
+	pip3 install -r requirements.txt
 	python3 -m pytest -v
 
 
