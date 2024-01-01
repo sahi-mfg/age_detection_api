@@ -18,6 +18,9 @@ stop:
 clean: stop
 	docker rmi $(IMAGE_NAME)
 
+test:
+	python -m pytest -v
+
 
 
 
