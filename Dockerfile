@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 
-WORKDIR /app
+WORKDIR /root/app
 
 # Install Python
 RUN apt-get -y update && \
@@ -9,8 +9,6 @@ RUN apt-get -y update && \
 
 # Install project dependencies
 COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . /app/
+RUN pip3 install -r requirements.txt
 
 CMD ["uvicorn","main:app", "--port","5001", "--host","0.0.0.0"]
