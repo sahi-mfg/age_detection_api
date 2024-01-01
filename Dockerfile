@@ -1,12 +1,16 @@
-FROM python:3.10-slim-buster
+FROM ubuntu:22.04
+
 
 WORKDIR /app
 
-COPY requirements.txt /tmp/
-RUN pip install --no-cache-dir --upgrade -r /tmp/requirements.txt
+# Install Python
+RUN apt-get -y update && \
+    apt-get install -y python3-pip
+
+# Install project dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 COPY . /app/
-
-RUN ls /app
 
 CMD ["uvicorn","main:app", "--port","5001", "--host","0.0.0.0"]
