@@ -2,10 +2,10 @@ from io import BytesIO
 
 import uvicorn
 from fastapi import FastAPI, File, HTTPException, UploadFile
-from .model import load_model, predict, prepare_image
 from PIL import Image
 from pydantic import BaseModel
 
+from .model import load_model, predict, prepare_image
 
 app = FastAPI(title="Age Detection", description="API to predict age from images", version="0.1")
 
@@ -47,4 +47,4 @@ async def prediction(file: UploadFile = File(...)):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=5001)
+    uvicorn.run("app.main:app", port=5001)
