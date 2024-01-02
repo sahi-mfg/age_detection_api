@@ -11,4 +11,4 @@ RUN apt-get -y update && \
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
-CMD ["uvicorn","main:app", "--port","5001", "--host","0.0.0.0"]
+CMD ["uvicorn","app.main:app", "--port","5001", "--host","0.0.0.0"]
