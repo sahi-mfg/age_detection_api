@@ -1,7 +1,0 @@
-services:
-- type: web
-  name: fastapi-service
-  env: docker
-  dockerfilePath: Dockerfile
-  buildCommand: docker build -f Dockerfile -t fastapi-service .
-  startCommand: docker run -p 10000:80 fastapi-service
