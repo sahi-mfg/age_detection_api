@@ -33,7 +33,7 @@ async def prediction(file: UploadFile = File(...)):
     content = await file.read()
     image = Image.open(BytesIO(content)).convert("RGB")
 
-    # preprocess the image and prepare it for classification
+    # preprocessing of the image and prepare it for classification
     inputs = prepare_image(image)
 
     response = predict(inputs)
