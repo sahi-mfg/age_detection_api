@@ -27,7 +27,7 @@ class Prediction(BaseModel):
 @app.post("/predict", response_model=Prediction, tags=["Prediction"])
 async def prediction(file: UploadFile = File(...)):
     # Ensure that the file is an image
-    if not file.content_type.startswith("image/"):
+    if file.content_type is None or not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File provided is not an image.")
 
     content = await file.read()
