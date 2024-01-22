@@ -1,5 +1,5 @@
-from transformers import ViTImageProcessor, ViTForImageClassification
 from PIL import Image
+from transformers import ViTForImageClassification, ViTImageProcessor  # type: ignore
 
 model = ViTForImageClassification.from_pretrained("nateraw/vit-age-classifier")
 feature_extractor = ViTImageProcessor.from_pretrained("nateraw/vit-age-classifier")
