@@ -10,6 +10,8 @@ from jose import jwt  # type: ignore
 from passlib.context import CryptContext  # type: ignore
 from PIL import Image
 from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String  # type: ignore
+from sqlalchemy.ext.declarative import declarative_base  # type: ignore
 
 from .model import load_model, predict, prepare_image
 
@@ -24,14 +26,20 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 
+Base = declarative_base()
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-
-class User(BaseModel):
-    username: str
-    password: str
 
 
 class UserInDB(User):
