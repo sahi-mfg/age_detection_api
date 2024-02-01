@@ -12,3 +12,6 @@ httpx
 requests~=2.31.0
 pillow~=10.1.0
 pydantic~=2.5.2
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
