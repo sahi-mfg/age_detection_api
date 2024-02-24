@@ -1,23 +1,25 @@
 from PIL import Image
 from transformers import ViTForImageClassification, ViTImageProcessor  # type: ignore
 
-model = ViTForImageClassification.from_pretrained("nateraw/vit-age-classifier")
-feature_extractor = ViTImageProcessor.from_pretrained("nateraw/vit-age-classifier")
-
 
 def load_model():
-    model.eval()
+    model = ViTForImageClassification.from_pretrained("nateraw/vit-age-classifier")
     return model
 
 
-def prepare_image(image):
+def load_feature_extractor():
+    feature_extractor = ViTImageProcessor.from_pretrained("nateraw/vit-age-classifier")
+    return feature_extractor
+
+
+def prepare_image(image, feature_extractor):
     if not isinstance(image, Image.Image):
         image = Image.open(image).convert("RGB")
     inputs = feature_extractor(images=image, return_tensors="pt")
     return inputs
 
 
-def predict(inputs):
+def predict(inputs, model):
     outputs = model(**inputs)
     # Get the class index with the highest probability
     class_index = outputs.logits.argmax(-1).item()
