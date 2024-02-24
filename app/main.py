@@ -5,11 +5,12 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from PIL import Image
 from pydantic import BaseModel
 
-from .model import load_model, predict, prepare_image
+from .model import load_feature_extractor, load_model, predict, prepare_image
 
 app = FastAPI(title="Age Detection", description="API to predict age from images", version="0.1")
 
 model = load_model()
+feature_extractor = load_feature_extractor()
 
 
 @app.get("/", tags=["Welcome"])
@@ -34,9 +35,9 @@ async def prediction(file: UploadFile = File(...)):
     image = Image.open(BytesIO(content)).convert("RGB")
 
     # preprocessing of the image and prepare it for classification
-    inputs = prepare_image(image)
+    inputs = prepare_image(image, feature_extractor)
 
-    response = predict(inputs)
+    response = predict(inputs, model)
 
     # return the response as a JSON
     return {
