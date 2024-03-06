@@ -2,6 +2,9 @@
 # Targets
 .PHONY: build run stop clean
 
+build:
+	docker-compose build --pull
+
 up:
 	docker-compose up --build
 
