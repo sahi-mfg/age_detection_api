@@ -15,5 +15,5 @@ OR
 You should have `docker` installed on your system.
 
 1. Clone the repository
-2. build and run the docker image using the command `make build && make run`
+2. build and run the docker image using the command `make run`
 3. to stop the docker container use the command `make clean`
