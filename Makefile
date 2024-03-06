@@ -1,22 +1,13 @@
-# Variables
-IMAGE_NAME = age-detection-api
-CONTAINER_NAME = age-detection-api-container
-PORT = 5001
-
+# Created Date: Tuesday, June 29th 2021, 10:00:00 pm
 # Targets
 .PHONY: build run stop clean
 
-build:
-	docker build -t $(IMAGE_NAME) .
+up:
+	docker-compose up --build
 
-run:
-	docker run -d -p $(PORT):$(PORT) --name $(CONTAINER_NAME) $(IMAGE_NAME)
+down:
+	docker-compose down
 
-stop:
-	docker stop $(CONTAINER_NAME) && docker rm $(CONTAINER_NAME)
-
-clean: stop
-	docker rmi $(IMAGE_NAME)
 
 test:
 	pip3 install -r requirements.txt
