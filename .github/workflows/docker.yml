@@ -10,4 +10,3 @@ jobs:
       - name: Build the Docker image
         run: |
           make test
-          make up
