@@ -1,6 +1,6 @@
 # Created Date: Tuesday, June 29th 2021, 10:00:00 pm
 # Targets
-.PHONY: build run stop clean
+.PHONY: build up down, test, clean
 
 build:
 	docker-compose build --pull
