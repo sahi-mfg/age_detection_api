@@ -9,8 +9,8 @@ from PIL import Image  # type: ignore
 
 st.title("Age Detection App")
 st.image(
-    "https://www.onepointltd.com/wp-content/uploads/2020/03/inno2.png",
-    caption="Age Detection App",
+    "./assets/images.png",
+    caption="Age Detection",
     use_column_width=True,
 )
 
@@ -23,12 +23,12 @@ if uploaded_file is not None:
     # Convert the image to bytes
     img_byte_arr = io.BytesIO()
     image.save(img_byte_arr, format="PNG")
-    img_byte_arr = img_byte_arr.getvalue()
+    img_bytes = img_byte_arr.getvalue()
 
     # Send a POST request to the API endpoint
     response = requests.post(
         "http://localhost:8000/predict",
-        files={"file": ("image.png", img_byte_arr, "image/png")},
+        files={"file": ("image.png", img_bytes, "image/png")},
     )
 
     # Display the response
