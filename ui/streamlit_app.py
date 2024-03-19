@@ -9,7 +9,7 @@ from PIL import Image  # type: ignore
 
 st.title("Age Detection App")
 st.image(
-    "./assets/images.png",
+    "https://visagetechnologies.com/app/uploads/2023/07/Age-estimation_FaceAnalysis_Visage-Technologies.webp",
     caption="Age Detection",
     use_column_width=True,
 )
@@ -33,6 +33,6 @@ if uploaded_file is not None:
 
     # Display the response
     if response.status_code == 200:
-        st.success("Predicted age range:  {}".format(response.json()["predictions"]))
+        st.success("Predicted Age Range:  {}".format(response.json()["predictions"]))
     else:
         st.error("Failed to get a response from the API.")
