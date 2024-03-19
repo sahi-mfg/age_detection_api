@@ -16,8 +16,7 @@ test:
 	pip3 install -r requirements.txt
 	python3 -m pytest -v
 
-app:
-	pip3 install -r requirements.txt
+streamlit:
 	python3 -m streamlit run ui/streamlit_app.py
 
 clean:
