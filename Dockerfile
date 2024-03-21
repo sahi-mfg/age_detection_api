@@ -36,14 +36,15 @@ COPY requirements.txt .
 # into this layer.
 RUN python -m pip install -r requirements.txt
 
-# Switch to the non-privileged user to run the application.
-USER appuser
+USER root
 
 # Copy the source code into the container.
 COPY ./app ./app
 
 # Expose the port that the application listens on.
 EXPOSE 8000
+
+ENV PORT=8000
 
 # Run the application.
 COPY entrypoint.sh /entrypoint.sh
