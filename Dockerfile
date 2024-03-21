@@ -46,4 +46,6 @@ COPY ./app ./app
 EXPOSE 8000
 
 # Run the application.
-CMD uvicorn 'app.main:app' --host=0.0.0.0 --port=${PORT}
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
