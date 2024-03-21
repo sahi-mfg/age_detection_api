@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image  # type: ignore
 from transformers import ViTForImageClassification, ViTImageProcessor  # type: ignore
 
 
