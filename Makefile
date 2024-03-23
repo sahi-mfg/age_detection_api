@@ -11,6 +11,8 @@ up:
 down:
 	docker-compose down
 
+restart: down up
+
 
 test:
 	pip3 install -r requirements.txt
