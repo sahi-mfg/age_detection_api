@@ -44,7 +44,7 @@ COPY ./app ./app
 # Expose the port that the application listens on.
 EXPOSE 8000
 
-ENV PORT=8000
+ENV PORT 8000
 
 # Run the application.
 COPY entrypoint.sh /entrypoint.sh
