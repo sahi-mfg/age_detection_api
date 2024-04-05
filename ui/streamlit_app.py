@@ -14,6 +14,16 @@ st.image(
     use_column_width=True,
 )
 
+
+@st.cache_data
+def api_call():
+    response = requests.post(
+        "http://localhost:8000/predict",
+        files={"file": ("image.png", img_bytes, "image/png")},
+    )
+    return response
+
+
 # Upload the image
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 if uploaded_file is not None:
@@ -26,10 +36,7 @@ if uploaded_file is not None:
     img_bytes = img_byte_arr.getvalue()
 
     # Send a POST request to the API endpoint
-    response = requests.post(
-        "http://localhost:8000/predict",
-        files={"file": ("image.png", img_bytes, "image/png")},
-    )
+    response = api_call()
 
     # Display the response
     if response.status_code == 200:
