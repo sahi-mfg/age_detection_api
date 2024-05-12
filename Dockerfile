@@ -36,7 +36,7 @@ COPY requirements.txt .
 # into this layer.
 RUN python -m pip install --no-cache-dir -r requirements.txt
 
-USER appuser
+USER root
 # Copy the source code into the container.
 COPY ./app ./app
 
@@ -47,5 +47,5 @@ ENV PORT 8000
 
 # Run the application.
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
 CMD ["/entrypoint.sh"]
