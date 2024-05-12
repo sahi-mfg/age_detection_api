@@ -20,12 +20,12 @@ WORKDIR /app
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
 RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/user" \
-    --shell "/sbin/nologin" \
-    --uid "${UID}" \
-    appuser
+  --disabled-password \
+  --gecos "" \
+  --home "/user" \
+  --shell "/sbin/nologin" \
+  --uid "${UID}" \
+  appuser
 
 # Copy the requirements.txt file into the container.
 COPY requirements.txt .
@@ -34,10 +34,9 @@ COPY requirements.txt .
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # into this layer.
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
-USER root
-
+USER appuser
 # Copy the source code into the container.
 COPY ./app ./app
 
