@@ -7,7 +7,9 @@ from pydantic import BaseModel
 
 from .model import load_feature_extractor, load_model, predict, prepare_image
 
-app = FastAPI(title="Age Detection", description="API to predict age from images", version="0.1")
+app = FastAPI(
+    title="Age Detection", description="API to predict age from images", version="0.1"
+)
 
 model = load_model()
 feature_extractor = load_feature_extractor()
