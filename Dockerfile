@@ -16,17 +16,6 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
-ARG UID=10001
-RUN adduser \
-  --disabled-password \
-  --gecos "" \
-  --home "/user" \
-  --shell "/sbin/nologin" \
-  --uid "${UID}" \
-  appuser
-
 # Copy the requirements.txt file into the container.
 COPY requirements.txt .
 
