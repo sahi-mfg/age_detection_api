@@ -40,6 +40,6 @@ if uploaded_file is not None:
 
     # Display the response
     if response.status_code == 200:
-        st.success("Predicted Age Range:  {}".format(response.json()["predictions"]))
+        st.success(f"Predicted Age Range:  {response.json()["predictions"]}")
     else:
         st.error("Failed to get a response from the API.")
