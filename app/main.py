@@ -1,9 +1,9 @@
 from io import BytesIO
 
-import uvicorn
-from fastapi import FastAPI, File, HTTPException, UploadFile
+import uvicorn  # type: ignore
+from fastapi import FastAPI, File, HTTPException, UploadFile  # type: ignore
 from PIL import Image  # type: ignore
-from pydantic import BaseModel
+from pydantic import BaseModel  # type: ignore
 
 from .model import load_feature_extractor, load_model, predict, prepare_image
 
