@@ -4,28 +4,36 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/engine/reference/builder/
 
-ARG PYTHON_VERSION=3.11.4
+ARG PYTHON_VERSION=3.12.4
 FROM python:${PYTHON_VERSION}-slim as base
 
-# Prevents Python from writing pyc files.
-ENV PYTHONDONTWRITEBYTECODE=1
+ARG AGE_DETECT
 
-# Keeps Python from buffering stdout and stderr to avoid situations where
-# the application crashes without emitting any logs due to buffering.
-ENV PYTHONUNBUFFERED=1
+ENV AGE_DETECT_ENV=${AGE_DETECT} \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    # Poetry's configuration:
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_CACHE_DIR='/var/cache/pypoetry' \
+    POETRY_HOME='/usr/local' \
+    POETRY_VERSION=1.7.1
+
+# System deps:
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
 
 WORKDIR /app
+COPY poetry.lock pyproject.toml /app/
 
-# Copy the requirements.txt file into the container.
-COPY requirements.txt .
+# Project initialization:
+RUN poetry install $(test "$AGE_DETECT_ENV" == pre-production && echo "--only=main") --no-interaction --no-ansi
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# into this layer.
-RUN python -m pip install --no-cache-dir -r requirements.txt && python -m pip install pytest
 
-USER root
 # Copy the source code into the container.
 COPY ./app ./app
 
