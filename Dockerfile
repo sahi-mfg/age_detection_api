@@ -23,7 +23,7 @@ COPY requirements.txt .
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # into this layer.
-RUN python -m pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt && python -m pip install -r requirements-test.txt
 
 USER root
 # Copy the source code into the container.
