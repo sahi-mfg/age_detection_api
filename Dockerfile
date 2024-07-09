@@ -31,7 +31,7 @@ WORKDIR /app
 COPY poetry.lock pyproject.toml /app/
 
 # Project initialization:
-RUN poetry install $(test "$AGE_DETECT_ENV" == pre-production && echo "--only=main") --no-interaction --no-ansi
+RUN poetry install
 
 
 # Copy the source code into the container.
