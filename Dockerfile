@@ -1,14 +1,17 @@
 # Use an official Python runtime as a parent image
 FROM python:3.12-slim
 
-# Set environment variables
 ENV POETRY_VERSION=1.8.3
+ENV POETRY_HOME="/opt/poetry"
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
 # Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN apt-get update && apt-get install -y curl && \
+    curl -sSL https://install.python-poetry.org | python3 - && \
+    apt-get remove -y curl && apt-get autoremove -y && \
+    ln -s $POETRY_HOME/bin/poetry /usr/local/bin/poetry
 
-# Ensure the Poetry binary is in the PATH
-ENV PATH="/root/.local/bin:$PATH"
+
 
 # Set the working directory in the container
 WORKDIR /app
@@ -22,8 +25,5 @@ RUN poetry install --no-root
 # Copy the rest of the application code
 COPY . /app
 
-
 # Run the application.
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod a+x /entrypoint.sh
-CMD ["/entrypoint.sh"]
+CMD ["poetry", "run", "uvicorn", "app.main:app", "--reload"]
