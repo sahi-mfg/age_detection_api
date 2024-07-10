@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "API to detect age from photos"
 authors = ["Sahi Mohamed Francis Gonsangbeu <mohamedfrancissahi@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -29,6 +30,8 @@ pytest-mock = "^3.14.0"
 ruff = "^0.5.1"
 pre-commit = "^3.7.1"
 pdoc = "^14.5.1"
+pytest = "^8.2.2"
+
 
 [build-system]
 requires = ["poetry-core"]
