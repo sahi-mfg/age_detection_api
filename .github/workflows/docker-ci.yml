@@ -16,4 +16,4 @@ jobs:
       - name: Build the Docker image
         run: |
           make build
-          make test
+          poetry make test

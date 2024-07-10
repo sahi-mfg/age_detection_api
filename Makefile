@@ -15,10 +15,10 @@ restart: down up
 
 
 test:
-	poetry run python3 -m pytest -v
+	python3 -m pytest -v
 
 streamlit:
-	poetry run python3 -m streamlit run ui/streamlit_app.py
+	python3 -m streamlit run ui/streamlit_app.py
 
 clean:
 	docker-compose rm -f
