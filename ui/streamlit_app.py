@@ -1,31 +1,29 @@
 import io
 
 import requests  # type: ignore
-import streamlit as st
+import streamlit as st  # type: ignore
 from PIL import Image  # type: ignore
 
 # st.set_page_config(page_title="Age Detection App", layout="wide")
 
 
 st.title("Age Detection App")
-st.image(
-    "https://visagetechnologies.com/app/uploads/2023/07/Age-estimation_FaceAnalysis_Visage-Technologies.webp",
-    caption="Age Detection",
-    use_column_width=True,
-)
+st.header("This app predicts the age range of a person from an image.")
 
 
-@st.cache_data
 def api_call():
     response = requests.post(
-        "http://localhost:8000/predict",
+        "https://fastapi-app-ml-msze6264nq-od.a.run.app/predict",
         files={"file": ("image.png", img_bytes, "image/png")},
     )
     return response
 
 
 # Upload the image
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader(
+    "Please upload an image of a person to predict their age range",
+    type=["jpg", "jpeg", "png"],
+)
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
@@ -37,9 +35,11 @@ if uploaded_file is not None:
 
     # Send a POST request to the API endpoint
     response = api_call()
+    req = response.json()
+    prediction = req["predictions"]
 
     # Display the response
     if response.status_code == 200:
-        st.success(f"Predicted Age Range:  {response.json()["predictions"]}")
+        st.success(f"L'âge de cette personne est dans la tranche:  {prediction} ans.")
     else:
         st.error("Failed to get a response from the API.")
