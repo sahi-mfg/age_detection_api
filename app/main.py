@@ -5,7 +5,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile  # type: ignore
 from PIL import Image  # type: ignore
 from pydantic import BaseModel  # type: ignore
 
-from .model import load_feature_extractor, load_model, predict, prepare_image
+from app.model import load_feature_extractor, load_model, predict, prepare_image
 
 app = FastAPI(
     title="Age Detection", description="API to predict age from images", version="0.1"
