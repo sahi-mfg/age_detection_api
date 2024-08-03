@@ -134,5 +134,5 @@ dmypy.json
 
 Pipfile.lock
 
-.history/
+.history
 .vscode/
