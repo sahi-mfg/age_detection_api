@@ -9,7 +9,7 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "^3.12"
 python-multipart = "^0.0.9"
-fastapi = "^0.111.0"
+fastapi = "^0.112.0"
 pydantic = "^2.8.2"
 torch = "^2.3.1"
 transformers = "^4.42.3"
