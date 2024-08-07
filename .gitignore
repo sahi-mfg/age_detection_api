@@ -136,3 +136,4 @@ Pipfile.lock
 
 .history
 .vscode/
+.ruff_cache
