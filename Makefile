@@ -15,7 +15,7 @@ restart: down up
 
 
 test:
-	docker-compose run --rm app test
+	docker-compose run --rm test
 
 streamlit:
 	docker-compose run --rm app poetry run streamlit run ui/streamlit_app.py
