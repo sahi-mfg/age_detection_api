@@ -7,5 +7,8 @@ client = TestClient(app)
 
 def test_predict():
     filepath = "tests/files/picture.jpeg"
-    response = client.post("/predict", files={"file": ("filename", open(filepath, "rb"), "image/jpeg")})
+    with open(filepath, "rb") as file:
+        response = client.post(
+            "/predict", files={"file": ("filename", file, "image/jpeg")}
+        )
     assert response.status_code == 200
