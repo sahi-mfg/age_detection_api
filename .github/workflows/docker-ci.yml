@@ -1,18 +1,49 @@
-name: Docker CI
+name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
-    branches:
-      - "*"
+    branches: ["main"]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Build the Docker image
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
         run: |
-          make up && make test
+          pip install pipenv
+          make install
+
+      - name: Run tests
+        run: make test
+
+      - name: Run linter
+        run: make lint
+
+      - name: Generate documentation
+        run: make docs
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: docs/
+
+      - name: Build Docker image
+        run: docker build -t age-detection-api .
+
+      - name: Run application (smoke test)
+        run: |
+          docker run -d -p 8000:8000 age-detection-api
+          sleep 10
+          curl http://localhost:8000/docs
+          docker stop $(docker ps -q --filter ancestor=age-detection-api)

@@ -1,24 +1,24 @@
-# Created Date: Tuesday, June 29th 2021, 10:00:00 pm
-# Targets
-.PHONY: build up down test clean
-
-build:
-	docker-compose build --pull
-
-up:
-	docker-compose up --build
-
-down:
-	docker-compose down
-
-restart: down up
-
+install:
+	pipenv install --dev
 
 test:
-	docker-compose run --rm test
+	pipenv run pytest --cov=app --cov-report=term-missing -v
 
-streamlit:
-	docker-compose run --rm app poetry run streamlit run ui/streamlit_app.py
+run:
+	pipenv run uvicorn app.main:app --reload
 
 clean:
-	docker-compose rm -f
+	find . -type f -name '*.pyc' -delete
+	find . -type d -name '__pycache__' -delete
+
+lint:
+	pipenv run ruff check .
+
+format:
+	pipenv run ruff format .
+
+docs:
+	pipenv run pdoc --html --output-dir docs app
+
+.PHONY: all
+all: clean install lint test docs
