@@ -41,7 +41,7 @@ with st.sidebar:
     st.write("Types de fichiers pris en charge : JPG, JPEG, PNG")
 
 
-def appel_api(img_bytes):
+def api_call(img_bytes):
     response = requests.post(
         "https://fastapi-app-ml-msze6264nq-od.a.run.app/predict",
         files={"file": ("image.png", img_bytes, "image/png")},
@@ -71,7 +71,7 @@ with col1:
             img_bytes = img_byte_arr.getvalue()
 
             # Envoi d'une requête POST à l'endpoint de l'API
-            reponse = appel_api(img_bytes)
+            reponse = api_call(img_bytes)
 
         if reponse.status_code == 200:
             req = reponse.json()
