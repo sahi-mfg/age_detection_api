@@ -29,15 +29,6 @@ jobs:
       - name: Run linter
         run: make lint
 
-      - name: Generate documentation
-        run: make docs
-
-      - name: Upload documentation artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: documentation
-          path: docs/
-
       - name: Build Docker image
         run: docker build -t age-detection-api .
 

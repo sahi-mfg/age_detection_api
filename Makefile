@@ -17,8 +17,5 @@ lint:
 format:
 	pipenv run ruff format .
 
-docs:
-	pipenv run pdoc --html --output-dir docs app
-
 .PHONY: all
 all: clean install lint test docs
