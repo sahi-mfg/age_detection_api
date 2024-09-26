@@ -6,7 +6,7 @@ from PIL import Image  # type: ignore
 
 # Configuration de la page
 st.set_page_config(
-    page_title="Application de Détection d'Âge",
+    page_title="Application de Détection d'âge",
     page_icon="👤",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -79,7 +79,7 @@ with col1:
 
             with col2:
                 st.subheader("Résultat de la Prédiction")
-                st.success("🎉 Tranche d'Âge Prédite")
+                st.success("🎉 Tranche d'âge Prédite")
                 st.markdown(f"### {prediction} ans")
         else:
             st.error("Échec de la réponse de l'API. Veuillez réessayer.")
