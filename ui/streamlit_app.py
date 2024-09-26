@@ -6,7 +6,7 @@ from PIL import Image  # type: ignore
 
 # Configuration de la page
 st.set_page_config(
-    page_title="Application de Détection d'Âge",
+    page_title="Application de Détection d'âge",
     page_icon="👤",
     layout="wide",
     initial_sidebar_state="expanded",
