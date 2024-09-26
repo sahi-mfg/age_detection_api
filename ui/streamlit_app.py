@@ -79,7 +79,7 @@ with col1:
 
             with col2:
                 st.subheader("Résultat de la Prédiction")
-                st.success("🎉 Tranche d'Âge Prédite")
+                st.success("🎉 Tranche d'âge Prédite")
                 st.markdown(f"### {prediction} ans")
         else:
             st.error("Échec de la réponse de l'API. Veuillez réessayer.")
