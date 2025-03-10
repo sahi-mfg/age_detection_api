@@ -1,22 +1,16 @@
-# Use an official Python runtime as a parent image
-FROM python:3.12-slim
+FROM python:3.12-slim-bookworm
 
-# Set the working directory in the container
-WORKDIR /app
+# The installer requires curl (and certificates) to download the release archive
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Download the latest installer
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
 
-# Install pipenv
-RUN pip install --no-cache-dir pipenv
+# Run the installer then remove it
+RUN sh /uv-installer.sh && rm /uv-installer.sh
 
-# Copy the Pipfile and Pipfile.lock into the container
-COPY Pipfile Pipfile.lock ./
-
-# Install project dependencies
-RUN pipenv install --deploy --system
+# Ensure the installed binary is on the `PATH`
+ENV PATH="/root/.local/bin/:$PATH"
 
 # Copy the rest of the application code
 COPY . .
