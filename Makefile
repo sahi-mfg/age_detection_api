@@ -1,21 +1,15 @@
 install:
-	pipenv install --dev
+	uv sync
 
 test:
-	pipenv run pytest --cov=app --cov-report=term-missing -v
+	uv run pytest -v tests/
 
 run:
-	pipenv run uvicorn app.main:app --reload
+	uv run uvicorn app.main:app --reload
 
-clean:
-	find . -type f -name '*.pyc' -delete
-	find . -type d -name '__pycache__' -delete
 
 lint:
-	pipenv run ruff check .
+	uv run ruff check .
 
 format:
-	pipenv run ruff format .
-
-.PHONY: all
-all: clean install lint test docs
+	uv run ruff format .
