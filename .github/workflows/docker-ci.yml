@@ -18,9 +18,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Install dependencies
         run: |
-          pip install pipenv
           make install
 
       - name: Run tests
@@ -29,12 +31,9 @@ jobs:
       - name: Run linter
         run: make lint
 
-      - name: Build Docker image
-        run: docker build -t age-detection-api .
 
       - name: Run application (smoke test)
         run: |
-          docker run -d -p 8000:8000 age-detection-api
+          make run
           sleep 10
           curl http://localhost:8000/docs
-          docker stop $(docker ps -q --filter ancestor=age-detection-api)
