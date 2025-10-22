@@ -15,8 +15,6 @@ ENV PATH="/root/.local/bin/:$PATH"
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 8000
 
-# Command to run the application
-CMD ["uv", "run", "app/main.py"]
+# Lance le serveur uvicorn pour l'application FastAPI
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
