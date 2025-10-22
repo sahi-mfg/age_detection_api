@@ -1,20 +1,17 @@
-FROM python:3.12-slim-bookworm
+# Utilise une image légère de Python comme image de base
+FROM python:3.12-slim
 
-# The installer requires curl (and certificates) to download the release archive
-RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+# Définit le répertoire de travail dans le conteneur
+WORKDIR /api
 
-# Download the latest installer
-ADD https://astral.sh/uv/install.sh /uv-installer.sh
+# Copie les fichiers de dépendances dans le conteneur
+COPY requirements.txt .
+# Installe les dépendances nécessaires
 
-# Run the installer then remove it
-RUN sh /uv-installer.sh && rm /uv-installer.sh
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Ensure the installed binary is on the `PATH`
-ENV PATH="/root/.local/bin/:$PATH"
-
-# Copy the rest of the application code
+# Copie le reste du code de l'application dans le conteneur
 COPY . .
-
 
 # Lance le serveur uvicorn pour l'application FastAPI
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
