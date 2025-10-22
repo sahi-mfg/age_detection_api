@@ -4,7 +4,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile  # type: ignore
 from PIL import Image  # type: ignore
 from pydantic import BaseModel  # type: ignore
 
-from api.model import load_feature_extractor, load_model, predict, prepare_image
+from app.model import load_feature_extractor, load_model, predict, prepare_image
 
 api_description = """
 This is an API that provides predictions of age range of a person in an image.

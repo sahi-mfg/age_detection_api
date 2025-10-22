@@ -5,7 +5,7 @@ test:
 	uv run pytest -v tests/
 
 run:
-	uv run uvicorn api.main:app --reload
+	uv run uvicorn app.main:app --reload
 
 
 lint:

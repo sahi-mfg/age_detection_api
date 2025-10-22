@@ -2,7 +2,7 @@
 FROM python:3.12-slim
 
 # Définit le répertoire de travail dans le conteneur
-WORKDIR /api
+WORKDIR /app
 
 # Copie les fichiers de dépendances dans le conteneur
 COPY requirements.txt .
