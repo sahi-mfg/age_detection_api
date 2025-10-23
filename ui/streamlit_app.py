@@ -43,7 +43,7 @@ with st.sidebar:
 
 def api_call(img_bytes):
     response = requests.post(
-        "https://fastapi-app-ml-msze6264nq-od.a.run.app/predict",
+        "https://age-detection-api.onrender.com/predict",
         files={"file": ("image.png", img_bytes, "image/png")},
     )
     return response
