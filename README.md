@@ -72,25 +72,179 @@ An API that predicts age ranges from images using a pre-trained Vision Transform
 
 ## 📚 API Documentation
 
-Once the API is running, visit:
-- **Interactive Docs**: `http://localhost:8000/docs` (Swagger UI)
-- **Alternative Docs**: `http://localhost:8000/redoc` (ReDoc)
+### Base URL
+- **Local Development**: `http://localhost:8000`
+- **Production**: `https://your-deployment-url.com`
 
-### Endpoints
+### Interactive Documentation
+Once the API is running, visit:
+- **Swagger UI**: `http://localhost:8000/docs` - Interactive API explorer
+- **ReDoc**: `http://localhost:8000/redoc` - Alternative documentation format
+
+---
+
+## 🔗 Endpoints
+
+### 1. Health Check
+
+#### `GET /`
+Basic health check endpoint to verify the API is running.
+
+**Response:**
+```json
+{
+  "Message": "Age detection API from images"
+}
+```
+
+**Example:**
+```bash
+curl -X GET "http://localhost:8000/"
+```
+
+**Status Codes:**
+- `200 OK` - API is running successfully
+
+---
+
+### 2. Age Prediction
 
 #### `POST /predict`
-Upload an image and get the predicted age range.
+Upload an image and get the predicted age range using Vision Transformer model.
 
-**Request**: Multipart form data with an image file
-**Response**: JSON with filename, content type, and age prediction
+**Request:**
+- **Content-Type**: `multipart/form-data`
+- **Parameter**: `file` (required) - Image file in supported formats
 
-Example:
+**Supported Image Formats:**
+- JPEG (.jpg, .jpeg)
+- PNG (.png)
+- GIF (.gif)
+- BMP (.bmp)
+- TIFF (.tiff)
+
+**Response Model:**
+```json
+{
+  "filename": "string",
+  "content_type": "string",
+  "predictions": "string"
+}
+```
+
+**Age Range Categories:**
+The model predicts one of the following age ranges:
+- `0-2` - Infants and toddlers
+- `3-9` - Children
+- `10-19` - Teenagers
+- `20-29` - Young adults
+- `30-39` - Adults
+- `40-49` - Middle-aged adults
+- `50-59` - Mature adults
+- `60-69` - Senior adults
+- `70-79` - Elderly
+- `80+` - Very elderly
+
+**Success Response Example:**
+```json
+{
+  "filename": "portrait.jpg",
+  "content_type": "image/jpeg",
+  "predictions": "25-35"
+}
+```
+
+**Error Response Examples:**
+
+*Invalid file type:*
+```json
+{
+  "detail": "File provided is not an image."
+}
+```
+
+*Missing file:*
+```json
+{
+  "detail": [
+    {
+      "loc": ["body", "file"],
+      "msg": "field required",
+      "type": "value_error.missing"
+    }
+  ]
+}
+```
+
+**cURL Examples:**
+
 ```bash
+# Basic image upload
 curl -X POST "http://localhost:8000/predict" \
      -H "accept: application/json" \
      -H "Content-Type: multipart/form-data" \
-     -F "file=@your_image.jpg"
+     -F "file=@path/to/your/image.jpg"
+
+# With verbose output
+curl -v -X POST "http://localhost:8000/predict" \
+     -H "accept: application/json" \
+     -H "Content-Type: multipart/form-data" \
+     -F "file=@portrait.png"
 ```
+
+**Python Examples:**
+
+```python
+import requests
+
+# Using requests library
+url = "http://localhost:8000/predict"
+with open("image.jpg", "rb") as file:
+    files = {"file": file}
+    response = requests.post(url, files=files)
+    result = response.json()
+    print(f"Predicted age: {result['predictions']}")
+
+# Using httpx (async)
+import httpx
+import asyncio
+
+async def predict_age(image_path):
+    async with httpx.AsyncClient() as client:
+        with open(image_path, "rb") as file:
+            files = {"file": file}
+            response = await client.post(
+                "http://localhost:8000/predict",
+                files=files
+            )
+            return response.json()
+
+# Usage
+result = asyncio.run(predict_age("portrait.jpg"))
+```
+
+**Status Codes:**
+- `200 OK` - Successful prediction
+- `400 Bad Request` - Invalid file type or missing file
+- `422 Unprocessable Entity` - Invalid request format
+- `500 Internal Server Error` - Model processing error
+
+---
+
+## 🔧 Model Information
+
+**Model Details:**
+- **Architecture**: Vision Transformer (ViT)
+- **Source**: Hugging Face (`nateraw/vit-age-classifier`)
+- **Input Size**: 224x224 pixels (automatically resized)
+- **Color Format**: RGB
+- **Preprocessing**: Automatic normalization and resizing
+
+**Performance Notes:**
+- Best results with clear, front-facing portraits
+- Single person per image recommended
+- Good lighting conditions improve accuracy
+- Images are automatically preprocessed for optimal results
 
 ## 🛠️ Development
 
