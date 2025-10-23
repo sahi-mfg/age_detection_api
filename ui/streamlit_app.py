@@ -62,7 +62,7 @@ with col1:
 
     if fichier_telecharge is not None:
         image = Image.open(fichier_telecharge)
-        st.image(image, caption="Image Téléchargée", use_column_width=True)
+        st.image(image, caption="Image Téléchargée", use_container_width=True)
 
         with st.spinner("Analyse de l'image en cours..."):
             # Conversion de l'image en bytes
@@ -79,7 +79,7 @@ with col1:
 
             with col2:
                 st.subheader("Résultat de la Prédiction")
-                st.success("🎉 Tranche d'âge Prédite")
+                st.success(" Tranche d'âge Prédite")
                 st.markdown(f"### {prediction} ans")
         else:
             st.error("Échec de la réponse de l'API. Veuillez réessayer.")

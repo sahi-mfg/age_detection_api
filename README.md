@@ -74,7 +74,7 @@ An API that predicts age ranges from images using a pre-trained Vision Transform
 
 ### Base URL
 - **Local Development**: `http://localhost:8000`
-- **Production**: `https://your-deployment-url.com`
+- **Production**: `https://age-detection-api.onrender.com`
 
 ### Interactive Documentation
 Once the API is running, visit:
@@ -119,9 +119,6 @@ Upload an image and get the predicted age range using Vision Transformer model.
 **Supported Image Formats:**
 - JPEG (.jpg, .jpeg)
 - PNG (.png)
-- GIF (.gif)
-- BMP (.bmp)
-- TIFF (.tiff)
 
 **Response Model:**
 ```json

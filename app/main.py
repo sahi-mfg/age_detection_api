@@ -65,7 +65,7 @@ The model classifies images into these age ranges:
 - Use clear, front-facing portraits for best results
 - Ensure good lighting conditions
 - Single person per image recommended
-- Supported formats: JPEG, PNG, GIF, BMP, TIFF
+- Supported formats: JPEG, PNG
 
 ## Endpoints
 - **GET /**: Health check endpoint
@@ -124,7 +124,7 @@ async def prediction(
 
     Upload an image containing a person's face to get an age range prediction.
 
-    **Supported formats:** JPEG, PNG, GIF, BMP, TIFF
+    **Supported formats:** JPEG, PNG
 
     **Age ranges:** 0-2, 3-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+
 
