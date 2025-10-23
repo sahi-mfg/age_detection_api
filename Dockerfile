@@ -6,17 +6,15 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_CACHE_DIR=/tmp/uv-cache
 
-# Install system dependencies and uv
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     --no-install-recommends \
-    curl \
     build-essential \
     make \
-    && curl -LsSf https://astral.sh/uv/install.sh | sh \
     && rm -rf /var/lib/apt/lists/*
 
-# Add uv to PATH
-ENV PATH="/root/.local/bin:$PATH"
+# Install uv globally so it's available to all users (including non-root `app`)
+RUN python -m pip install --no-cache-dir uv
 
 # Set work directory
 WORKDIR /app
