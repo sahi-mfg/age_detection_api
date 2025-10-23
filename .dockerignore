@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+.mypy_cache/
+.ruff_cache/
+
+# Development files
+.git/
+.github/
+.gitignore
+.pre-commit-config.yaml
+.python-version
+.idea/
+.vscode/
+.DS_Store
+
+# Documentation and non-essential files
+README.md
+LICENSE
+*.md
+age-detection-app.png
+
+# Development tools
+docker-compose*
+compose*
+
+# Test files
+tests/
+**/test_*.py
+
+# Environment and config
+.env
+.env.*
+secrets.dev.yaml
+values.dev.yaml

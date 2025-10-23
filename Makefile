@@ -7,6 +7,8 @@ test:
 run:
 	uv run uvicorn app.main:app --reload
 
+run-prod:
+	uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 lint:
 	uv run ruff check .
