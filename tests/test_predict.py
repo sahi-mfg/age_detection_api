@@ -1,9 +1,10 @@
 import io
-from fastapi.testclient import TestClient  # type: ignore
-from PIL import Image  # type: ignore
 from unittest.mock import patch
 
-from app.main import app, Prediction
+from fastapi.testclient import TestClient  # type: ignore
+from PIL import Image  # type: ignore
+
+from app.main import Prediction, app
 
 client = TestClient(app)
 
@@ -11,10 +12,7 @@ client = TestClient(app)
 def test_greeting():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {
-        "Message": "Age detection API from images",
-        "version": "0.1",
-    }
+    assert response.json() == {"Message": "Age detection API from images"}
 
 
 def test_predict_valid_image():

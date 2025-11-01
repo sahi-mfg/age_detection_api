@@ -2,7 +2,7 @@ from io import BytesIO
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from PIL import Image  # type: ignore
-from pydantic import BaseModel, Field  # type: ignore
+from pydantic import BaseModel, ConfigDict, Field  # type: ignore
 
 from app.model import load_feature_extractor, load_model, predict, prepare_image
 
@@ -12,7 +12,9 @@ class HealthResponse(BaseModel):
     """Response model for health check"""
 
     Message: str = Field(
-        ..., description="API status message", example="Age detection API from images"
+        ...,
+        description="API status message",
+        json_schema_extra={"example": "Age detection API from images"},
     )
 
 
@@ -20,21 +22,28 @@ class Prediction(BaseModel):
     """Response model for age prediction"""
 
     filename: str = Field(
-        ..., description="Name of the uploaded image file", example="portrait.jpg"
+        ...,
+        description="Name of the uploaded image file",
+        json_schema_extra={"example": "portrait.jpg"},
     )
     content_type: str = Field(
-        ..., description="MIME type of the uploaded image", example="image/jpeg"
+        ...,
+        description="MIME type of the uploaded image",
+        json_schema_extra={"example": "image/jpeg"},
     )
-    predictions: str = Field(..., description="Predicted age range", example="20-29")
+    predictions: str = Field(
+        ..., description="Predicted age range", json_schema_extra={"example": "20-29"}
+    )
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "filename": "portrait.jpg",
                 "content_type": "image/jpeg",
                 "predictions": "25-35",
             }
         }
+    )
 
 
 api_description = """
