@@ -142,7 +142,7 @@ async def prediction(
     if file.content_type is None or not file.content_type.startswith("image/"):
         raise HTTPException(
             status_code=400,
-            detail="File provided is not an image. Supported formats: JPEG, PNG, GIF, BMP, TIFF",
+            detail="File provided is not an image. Supported formats: JPEG, PNG",
         )
 
     content = await file.read()
