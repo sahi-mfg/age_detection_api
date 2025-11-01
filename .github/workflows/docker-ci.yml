@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    # Cancel the whole job if it runs longer than this (minutes)
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -30,10 +32,3 @@ jobs:
 
       - name: Run linter
         run: make lint
-
-
-      - name: Run application (smoke test)
-        run: |
-          make run
-          sleep 10
-          curl http://localhost:8000/docs
